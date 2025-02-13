@@ -1,0 +1,22 @@
+name: Update LeetCode Stats
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Chạy tự động mỗi ngày lúc 00:00 UTC
+  workflow_dispatch: # Cho phép chạy thủ công nếu cần
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Fetch LeetCode stats
+        run: |
+          curl -s "https://leetcard.jacoblin.cool/NgocAnh2510" -o leetcode-card.png
+          git config --global user.email "nnanh251@gmail.com"
+          git config --global user.name "NgocAnh2510"
+          git add leetcode-card.png
+          git commit -m "Update LeetCode stats"
+          git push
